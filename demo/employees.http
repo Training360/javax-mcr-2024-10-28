@@ -1,0 +1,14 @@
+### List employees
+GET http://localhost:8080/api/employees
+
+### Find by id
+GET http://localhost:8080/api/employees/1
+
+### Create employee
+POST http://localhost:8080/api/employees
+Content-Type: application/json
+
+{
+  "name": "Jane Doe"
+}
+
