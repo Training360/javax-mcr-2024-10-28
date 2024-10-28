@@ -32,5 +32,16 @@ public class EmployeeController {
         return employeeService.addEmployee(employee);
     }
 
+    @PutMapping("/{id}")
+    public EmployeeResource updateEmployee(@PathVariable long id, @RequestBody EmployeeResource employee) {
+        if (id != employee.id()) {
+            throw new IllegalArgumentException("Ids don't match %d != %d".formatted(id, employee.id()));
+        }
+        return employeeService.updateEmployee(employee);
+    }
 
+    @DeleteMapping("/{id}")
+    public void deleteEmployee(@PathVariable long id) {
+        employeeService.deleteEmployee(id);
+    }
 }

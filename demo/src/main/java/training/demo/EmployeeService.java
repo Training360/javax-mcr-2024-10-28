@@ -38,4 +38,8 @@ public class EmployeeService {
         employees.put(employee.id(), employee);
         return employee;
     }
+
+    public void deleteEmployee(long id) {
+        employees.remove(id);
+    }
 }
