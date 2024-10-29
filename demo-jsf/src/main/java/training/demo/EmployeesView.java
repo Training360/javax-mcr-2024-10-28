@@ -33,8 +33,6 @@ public class EmployeesView {
         return "index.xhtml?faces-redirect=true";
     }
 
-
-
     public List<EmployeeResource> getEmployees() {
         return employees;
     }
