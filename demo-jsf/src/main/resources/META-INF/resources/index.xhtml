@@ -1,14 +1,22 @@
 <html xmlns:h="http://xmlns.jcp.org/jsf/html">
 <h:body>
     <h1>Employees</h1>
-    <p>List all employees.</p>
+
+    <h2>Add employee</h2>
+
+    <h:form>
+        <h:inputText value="#{employeesView.employeeToAdd.name}" />
+        <h:commandButton value="Create" action="#{employeesView.createEmployee()}" />
+    </h:form>
+
+    <h2>List employees</h2>
 
     <h:dataTable value="#{employeesView.employees}" var="employee">
        <h:column>
-           #{employee.id()}
+           #{employee.id}
        </h:column>
         <h:column>
-           #{employee.name()}
+           #{employee.name}
         </h:column>
     </h:dataTable>
 

@@ -29,13 +29,13 @@ public class EmployeeService {
 
     public EmployeeResource addEmployee(EmployeeResource employee) {
         long id = counter.incrementAndGet();
-        EmployeeResource employeeResource = new EmployeeResource(id, employee.name());
+        EmployeeResource employeeResource = new EmployeeResource(id, employee.getName());
         employees.put(id, employeeResource);
         return employeeResource;
     }
 
     public EmployeeResource updateEmployee(EmployeeResource employee) {
-        employees.put(employee.id(), employee);
+        employees.put(employee.getId(), employee);
         return employee;
     }
 

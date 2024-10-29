@@ -30,7 +30,7 @@ class EmployeeServiceTest {
         employeeService.addEmployee(new EmployeeResource(null, "Jane Doe"));
 
         assertThat(employeeService.findEmployees())
-                .extracting(EmployeeResource::name)
+                .extracting(EmployeeResource::getName)
                 .contains("Jane Doe");
     }
 

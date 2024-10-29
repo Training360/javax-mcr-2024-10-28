@@ -20,7 +20,7 @@ class DemoApplicationIT {
 	void addEmployee() {
 		employeeController.addEmployee(new EmployeeResource(null, "Jane Doe"));
 		assertThat(employeeController.findEmployees())
-				.extracting(EmployeeResource::name)
+				.extracting(EmployeeResource::getName)
 				.contains("Jane Doe");
 	}
 
