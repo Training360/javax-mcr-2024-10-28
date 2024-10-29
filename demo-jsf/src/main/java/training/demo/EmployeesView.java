@@ -27,11 +27,16 @@ public class EmployeesView {
     public String createEmployee() {
         employeeService.addEmployee(employeeToAdd);
 
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.getExternalContext().getFlash().setKeepMessages(true);
-        context.addMessage(null, new FacesMessage("Employee has been created"));
+        String message = "Employee has been created";
+        sendMessage(message);
 
         return "index.xhtml?faces-redirect=true";
+    }
+
+    protected void sendMessage(String message) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().getFlash().setKeepMessages(true);
+        context.addMessage(null, new FacesMessage(message));
     }
 
     public List<EmployeeResource> getEmployees() {
