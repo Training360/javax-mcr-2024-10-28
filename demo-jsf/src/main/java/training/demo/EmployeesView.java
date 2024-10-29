@@ -1,6 +1,8 @@
 package training.demo;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 
 import java.util.List;
 
@@ -24,6 +26,11 @@ public class EmployeesView {
 
     public String createEmployee() {
         employeeService.addEmployee(employeeToAdd);
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().getFlash().setKeepMessages(true);
+        context.addMessage(null, new FacesMessage("Employee has been created"));
+
         return "index.xhtml?faces-redirect=true";
     }
 

@@ -4,6 +4,8 @@
 
     <h2>Add employee</h2>
 
+    <h:messages />
+
     <h:form>
         <h:inputText value="#{employeesView.employeeToAdd.name}" />
         <h:commandButton value="Create" action="#{employeesView.createEmployee()}" />
