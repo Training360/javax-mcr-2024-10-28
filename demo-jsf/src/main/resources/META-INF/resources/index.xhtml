@@ -4,11 +4,11 @@
 
     <h2>Add employee</h2>
 
-    <h:messages />
+    <h:messages id="messages-ul"/>
 
-    <h:form>
-        <h:inputText value="#{employeesView.employeeToAdd.name}" />
-        <h:commandButton value="Create" action="#{employeesView.createEmployee()}" />
+    <h:form id="create-form">
+        <h:inputText id="name-input" value="#{employeesView.employeeToAdd.name}" />
+        <h:commandButton id="create-button" value="Create" action="#{employeesView.createEmployee()}" />
     </h:form>
 
     <h2>List employees</h2>
