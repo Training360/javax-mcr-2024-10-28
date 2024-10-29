@@ -1,12 +1,8 @@
 package training.demo;
 
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.RequestScope;
-
 import java.util.List;
 
-@Component
-@RequestScope
+@JsfView
 public class EmployeesView {
 
     private List<EmployeeResource> employees = List.of(
