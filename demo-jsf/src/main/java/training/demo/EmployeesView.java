@@ -1,14 +1,24 @@
 package training.demo;
 
+import jakarta.annotation.PostConstruct;
+
 import java.util.List;
 
 @JsfView
 public class EmployeesView {
 
-    private List<EmployeeResource> employees = List.of(
-            new EmployeeResource(1L, "Test Joe"),
-            new EmployeeResource(2L, "Test Jack")
-            );
+    private EmployeeService employeeService;
+
+    private List<EmployeeResource> employees;
+
+    public EmployeesView(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+
+    @PostConstruct
+    public void findEmployees() {
+        employees = employeeService.findEmployees();
+    }
 
     public List<EmployeeResource> getEmployees() {
         return employees;
