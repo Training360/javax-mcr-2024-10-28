@@ -1,4 +1,16 @@
-<html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:body>
     <h1>Employees</h1>
     <p>List all employees.</p>
+
+    <h:dataTable value="#{employeesView.employees}" var="employee">
+       <h:column>
+           #{employee.id()}
+       </h:column>
+        <h:column>
+           #{employee.name()}
+        </h:column>
+    </h:dataTable>
+
+</h:body>
 </html>
