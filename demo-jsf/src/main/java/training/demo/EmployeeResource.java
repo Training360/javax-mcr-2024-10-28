@@ -1,7 +1,13 @@
 package training.demo;
 
+import jakarta.validation.constraints.NotBlank;
+
+import java.util.Objects;
+
 public final class EmployeeResource {
     private Long id;
+
+    @NotBlank(message = "Name can not be blank")
     private String name;
 
     public EmployeeResource() {
@@ -26,5 +32,18 @@ public final class EmployeeResource {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EmployeeResource that = (EmployeeResource) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }
