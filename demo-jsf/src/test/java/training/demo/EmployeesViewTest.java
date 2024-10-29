@@ -15,20 +15,20 @@ class EmployeesViewTest {
     @Mock
     EmployeeService employeeService;
 
+    @Mock
+    MessageContext messageContext;
+
+    @InjectMocks
+    EmployeesView employeesView;
+
     @Test
     void createEmployee() {
-
-        EmployeesView employeesView = new EmployeesView(employeeService){
-            @Override
-            protected void sendMessage(String message) {
-                // Mocked
-            }
-        } ;
-
         EmployeeResource employeeResource = new EmployeeResource(null, "John Doe");
         employeesView.setEmployeeToAdd(employeeResource);
-        employeesView.createEmployee();
+        String result = employeesView.createEmployee();
 
         verify(employeeService).addEmployee(employeeResource);
+        verify(messageContext).sendMessage("Employee has been created");
+        assertEquals("index.xhtml?faces-redirect=true", result);
     }
 }

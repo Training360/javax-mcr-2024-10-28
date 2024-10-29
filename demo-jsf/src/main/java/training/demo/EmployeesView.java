@@ -11,12 +11,15 @@ public class EmployeesView {
 
     private EmployeeService employeeService;
 
+    private MessageContext messageContext;
+
     private List<EmployeeResource> employees;
 
     private EmployeeResource employeeToAdd = new EmployeeResource(null, "Input name");
 
-    public EmployeesView(EmployeeService employeeService) {
+    public EmployeesView(EmployeeService employeeService, MessageContext messageContext) {
         this.employeeService = employeeService;
+        this.messageContext = messageContext;
     }
 
     @PostConstruct
@@ -26,18 +29,11 @@ public class EmployeesView {
 
     public String createEmployee() {
         employeeService.addEmployee(employeeToAdd);
-
-        String message = "Employee has been created";
-        sendMessage(message);
-
+        messageContext.sendMessage("Employee has been created");
         return "index.xhtml?faces-redirect=true";
     }
 
-    protected void sendMessage(String message) {
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.getExternalContext().getFlash().setKeepMessages(true);
-        context.addMessage(null, new FacesMessage(message));
-    }
+
 
     public List<EmployeeResource> getEmployees() {
         return employees;
