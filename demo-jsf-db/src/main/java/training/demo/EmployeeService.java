@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -31,6 +32,12 @@ public class EmployeeService {
     }
 
     public EmployeeResource addEmployee(EmployeeResource employee) {
+        Optional<Employee> anotherWithSameName = employeeRepository.findEmployeeByName(employee.getName());
+        if (anotherWithSameName.isPresent()) {
+            throw new IllegalArgumentException("Employee already exists with name: %s, with id: %d"
+                    .formatted(employee.getName(), anotherWithSameName.get().getId()));
+        }
+
         Employee original = new Employee(employee.getId(), employee.getName());
         Employee entity = employeeRepository.save(original);
 
