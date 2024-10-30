@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 
@@ -15,11 +16,17 @@ import static org.hamcrest.Matchers.equalTo;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-
-public class EmployeeEndToEndIT {
+@Sql(statements = {"delete from employee"})
+class EmployeeEndToEndIT {
 
     @Autowired
     MockMvc mockMvc;
+
+    @Autowired
+    EmployeeRepository employeeRepository;
+
+    @Autowired
+    EmployeeService employeeService;
 
     @BeforeEach
     void init() {
@@ -32,12 +39,16 @@ public class EmployeeEndToEndIT {
 
 
     @Test
-    void findById() {
+    void findAll() {
+//        Employee employee = employeeRepository.save(new Employee(null, "John Doe"));
+        EmployeeResource resource = employeeService.addEmployee(new EmployeeResource(null, "John Doe"));
+        long id = resource.getId();
+
         when()
-                .get("/api/employees/{id}", "1")
+                .get("/api/employees/{id}", Long.toString(id))
                 .then()
                 .statusCode(200)
-                .body("id", equalTo(1),
+                 .body("id", equalTo((int) id),
                         "name", equalTo("John Doe"));
 
     }
