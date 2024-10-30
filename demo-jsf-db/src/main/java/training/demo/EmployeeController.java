@@ -1,5 +1,6 @@
 package training.demo;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -7,13 +8,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/employees")
+@AllArgsConstructor
 public class EmployeeController {
 
     private final EmployeeService employeeService;
-
-    public EmployeeController(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
 
     //@GetMapping("/api/employees")
     @GetMapping

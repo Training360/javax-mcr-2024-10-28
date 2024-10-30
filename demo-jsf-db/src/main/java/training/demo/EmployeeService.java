@@ -1,25 +1,27 @@
 package training.demo;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Service
+@AllArgsConstructor
+@Slf4j
 public class EmployeeService {
 
-    private EmployeeRepository employeeRepository;
+    // Ezt is generálja a Lombok: private static Logger log = LoggerFactory.getLogger(EmployeeService.class);
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
+    private final EmployeeRepository employeeRepository;
 
     public List<EmployeeResource> findEmployees() {
+        log.debug("Find all employees");
+        log.info("Find all");
         return employeeRepository.findAll()
                 .stream().map(entity -> new EmployeeResource(entity.getId(), entity.getName()))
                 .toList();

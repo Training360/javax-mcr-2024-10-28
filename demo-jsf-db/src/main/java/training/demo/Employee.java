@@ -1,8 +1,14 @@
 package training.demo;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
+//@Data: equals hashCode ne legyen entity-nél!
+@Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Employee {
 
     @Id
@@ -11,27 +17,4 @@ public class Employee {
 
     private String name;
 
-    public Employee() {
-    }
-
-    public Employee(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
