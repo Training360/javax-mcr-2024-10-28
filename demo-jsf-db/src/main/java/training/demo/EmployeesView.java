@@ -2,24 +2,29 @@ package training.demo;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import java.util.List;
 
 @JsfView
 @RequiredArgsConstructor
+@EnableConfigurationProperties(EmployeeProperties.class)
 public class EmployeesView {
 
     private final EmployeeService employeeService;
 
     private final MessageContext messageContext;
 
+    private final EmployeeProperties employeeProperties;
+
     private List<EmployeeResource> employees;
 
-    private EmployeeResource employeeToAdd = new EmployeeResource(null, "Input name");
+    private EmployeeResource employeeToAdd;
 
     @PostConstruct
     public void findEmployees() {
         employees = employeeService.findEmployees();
+        employeeToAdd = new EmployeeResource(null, employeeProperties.getPlaceholder());
     }
 
     public String createEmployee() {

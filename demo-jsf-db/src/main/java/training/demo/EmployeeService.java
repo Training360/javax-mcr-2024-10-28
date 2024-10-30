@@ -19,18 +19,18 @@ public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
+    private final EmployeeMapper employeeMapper;
+
     public List<EmployeeResource> findEmployees() {
         log.debug("Find all employees");
         log.info("Find all");
-        return employeeRepository.findAll()
-                .stream().map(entity -> new EmployeeResource(entity.getId(), entity.getName()))
-                .toList();
+        return employeeMapper.toDto(employeeRepository.findAll());
     }
 
     public EmployeeResource findEmployeeById(long id) {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Employee not found with id: %d".formatted(id)));
-        return new EmployeeResource(employee.getId(), employee.getName());
+        return employeeMapper.toDto(employee);
     }
 
     public EmployeeResource addEmployee(EmployeeResource employee) {
@@ -43,7 +43,7 @@ public class EmployeeService {
         Employee original = new Employee(employee.getId(), employee.getName());
         Employee entity = employeeRepository.save(original);
 
-        return new EmployeeResource(entity.getId(), entity.getName());
+        return employeeMapper.toDto(entity);
     }
 
     @Transactional
